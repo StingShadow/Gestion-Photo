@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UploadController!{% endblock %}
+
+{% block body %}
+<div class="container has-background-black mb-5" style="opacity: 0.9;">
+<header class="header mt-5">
+    <h1 class="title has-text-white is-uppercase is-size-3 pt-3 pl-4 pb-3">
+        Upload
+    </h1>
+</header>
+<div class="separator"></div>
+<section class="section has-text-white mb-5 pb-5">
+    <div class="container">
+    <img src="/photos/{{ image.filename }}"/><br>
+    {{image.legende}}
+
+    {{ form_start(form) }}
+    
+                {{ form_row(form.nom) }}
+                
+              {{ form_end(form) }}
+    </div>
+</section>
+
+
+
+{% endblock %}

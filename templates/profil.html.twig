@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+		<div class="container has-background-black mb-5" style="opacity: 0.9;">
+
+
+			<section class="section has-text-white mb-5 pb-5 mt-5">
+				<div class="container">
+					<div class="columns">
+						<div class="column is-9">
+							<div class="columns is-multiline">
+								<div class="column is-12 mt-2" style="background-color: #474747;">
+
+
+
+								</div>
+								<div class="column is-12 mt-2" style="background-color: #474747;">
+									{% for fiche in fiches %}
+									<figure class="image is-128x128" style="float: left">
+										<img class="is-flex-wrap-wrap" src="/CSS/IMG/userprofil.jpg">
+									</figure>
+									<div style="padding-left: 140px">
+										<p class="is-size-3">Bienvenue sur votre profil, {{ app.user.pseudo }}</p>
+										<br>
+										<p>Email enregistrée : {{ app.user.email }}</p>
+										<p>Vous êtes en grande partie un {{ app.user.denomination }}</p>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+						<div class="column is-3 has-text-white mt-2 mb-2" style="background-color: #3a3939;">
+							<p class="is-size-6 is-uppercase">Vos créations de campagne :</p>
+							<div class="separator"></div>
+							<ul>
+								{% for campagne in campagnes %}
+								<li>{{ campagne.titreCampagne }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+
+			
+			
+
+    <div class="has-text-centered">
+    {% for message in app.flashes('danger') %}
+       						<div class="notification is-danger">
+                                  {{ message }}
+							</div>
+                        {% endfor %}
+                        <a class="has-text-white" href={{ asset('/senddoc') }}>Recevoir la fiche de personnage associé</a>
+   </div>
+		</div>
+		
+{% endblock %}
+
+
+

@@ -1,0 +1,39 @@
+ $file = "content.xml";
+            $replace = $donnees['nom'];
+            $find = "NomForm";
+            $zip = new ZipArchive;
+            $res = $zip->open('Fiche de personnage template.odt');
+            
+            $zip->extractTo('./', 'content.xml');
+            $zip->deleteName('content.xml');
+            $zip->close();
+            
+            
+            $res = $zip->open('Fiche de personnage.odt');
+            $zip->deleteName('content.xml');
+            
+            /* $texte=file_get_contents("content.xml"); // On lit le fichier
+             $texte=str_replace('Nom' ,'',$texte); // on suprimme tout les [ Merde ] dans le fichier
+             $fp = fopen ("content.xml", "w+"); // On ouvre le fichier
+             // On écrit le nouveau fichier
+             fclose ($fp); // On ferme le fichier */
+            
+            if ($find != $replace) {
+                //recupere la totalité du fichier
+                $str = file_get_contents($file);
+                if ($str === false) {
+                    return false;
+                } else {
+                    //effectue le remplacement dans le texte
+                    $str = str_replace($find, $replace, $str);
+                    //remplace dans le fichier
+                    if (file_put_contents($file, $str) === false) {
+                        return false;
+                    }
+                }
+            }
+           
+            $zip->addFile("content.xml");
+            
+            $zip->close();
+            

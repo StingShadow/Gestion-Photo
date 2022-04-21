@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="container has-background-black mb-5" style="opacity: 0.9;">
+        <header class="header mt-5">
+            <h1 class="title has-color-grey text-shadows is-uppercase is-size-3 pt-3 pl-4 pb-3">
+                Connexion <span style="margin-left: 48%;">Osez traversez le miroir</span>
+            </h1>
+        </header>
+        <div class="separator"></div>
+
+        <section class="section has-text-white mb-5 pb-5">
+            <div class="container">
+
+
+            <form method="post" class="has-text-centered">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        Vous êtes connecté(e) comme {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
+                    </div>
+                {% endif %}
+
+                <h1 class="mb-3 font-weight-normal has-text-white is-size-1">Connexion et passage du miroir</h1>
+                <br><label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputPassword">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+
+                {#
+                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                #}
+
+                <button class="btn btn-lg btn-primary mt-3" type="submit">
+                    Me connecter
+                </button><br>
+            </form>
+        <br><p class="has-text-centered">La connexion vous permet notamment d'avoir accés au forum et ainsi de pouvoir discuter avec des nombreuses
+        personnes ou encore de participé a l'une des futures campagnes. Ne l'oublier pas ! N'oubliez pas également que vous
+        pourrez aussi générer votre propre fiche de personnage a utiliser dans vos parties !</p>
+                <figure class="image is-3by1">
+                    <img src="/CSS/IMG/bienvenue.gif">
+                </figure>
+        </div>
+        </section>
+    </div>
+
+
+
+{% endblock %}

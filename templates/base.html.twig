@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link href={{ asset('/CSS/bulma.min.css') }} rel="stylesheet">
+    <link href={{ asset('/CSS/template.css') }} rel="stylesheet">
+    <script src="https://kit.fontawesome.com/218868dcf5.js" crossorigin="anonymous"></script>
+    <style>
+
+        html, body {
+
+
+            background: url("/CSS/IMG/fond.jpg");
+            background-size: cover;
+
+        }
+
+        #form_label {
+            text-decoration-color: #00c4a7;
+        }
+
+        #pizza_ingredients{
+            display: flex;
+            margin-left: 5px;
+        }
+
+        .form-check{
+            margin-right: auto;
+        }
+
+        .outer-div
+{
+  padding: 30px;
+
+}
+.inner-div
+{
+  margin: auto;
+  width: 100px;
+  height: 100px;
+
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
+
+                // Add a click event on each of them
+                $navbarBurgers.forEach( el => {
+                    el.addEventListener('click', () => {
+
+                        // Get the target from the "data-target" attribute
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+
+                        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+
+                    });
+                });
+            }
+
+        });
+
+        $(document).ready(function() {
+
+            // Check for click events on the navbar burger icon
+            $(".navbar-burger").click(function() {
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                $(".navbar-burger").toggleClass("is-active");
+                $(".navbar-menu").toggleClass("is-active");
+
+            });
+        });
+    </script>
+</head>
+<body>
+{% block navbar %}
+
+    <section  class="section">
+    <a class="has-text-white is-size-3" href="/home" style="font-family: cursive; padding-left: 50px">Accueil</a>
+    <a class="has-text-white is-size-3" href="/Upload" style="font-family: cursive; padding-left: 80px; padding-right: 100px;"> Upload D'image</a>
+    <img src="/CSS/IMG/logo.png" style="padding-left: 30px"/>
+    {% if is_granted('ROLE_USER') %}
+                                <a class="has-text-white is-size-3" href="/profil" style="font-family: cursive; padding-left: 120px">Profil</a>
+                                <a class="has-text-white is-size-3" href="/deconnexion" style="font-family: cursive; padding-left: 70px">Deconnexion</a>                
+
+                {% else %}
+                                <a class="has-text-white is-size-3" href="/inscription" style="font-family: cursive; padding-left: 120px">Inscription</a>
+                                <a class="has-text-white is-size-3" href="/connexion" style="font-family: cursive; padding-left: 70px">Connexion</a>
+                {% endif %}
+    </section>
+
+    
+    
+    
+   
+    </div></div>
+{% endblock %}
+{% block body %}
+{% endblock %}
+
+
+
+</body>
+</html>
