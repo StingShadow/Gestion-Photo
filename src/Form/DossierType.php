@@ -20,7 +20,7 @@ class DossierType extends AbstractType
             ->add('sous_dossier', EntityType::class, [
                     'class' => Dossier::class,
                     'choice_label' => 'nom',
-                    'label' => 'Parent'
+                    'label' => 'Dossier existant'
                 ])
             ->add('validation', SubmitType::class, [
                 

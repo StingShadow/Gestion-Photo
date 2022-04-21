@@ -35,6 +35,7 @@ class ImageType extends AbstractType
                         'mimeTypes' => [
                             'image/png',
                             'image/jpg',
+                            'image/jpeg'
                         ],
                         'mimeTypesMessage' => 'Uploader uniquement une image sous format png ou jpg',
                     ])

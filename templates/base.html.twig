@@ -9,6 +9,21 @@
     <script src="https://kit.fontawesome.com/218868dcf5.js" crossorigin="anonymous"></script>
     <style>
 
+        #hide
+    {
+        display:none;
+    }
+
+     #hide-new
+    {
+        display:none;
+    }
+    
+        #validation
+    {
+        display:none;
+    }
+
         html, body {
 
 
@@ -83,6 +98,23 @@
 
             });
         });
+
+
+function handleClick(radio) {
+    
+    if (radio.value == 1){
+        document.getElementById("hide").style.display="block";
+        document.getElementById("hide-new").style.display="none";
+        document.getElementById("validation").style.display="block";
+    }
+    if(radio.value == 2) {
+        document.getElementById("hide-new").style.display="block";
+        document.getElementById("hide").style.display="none";
+        document.getElementById("validation").style.display="block";
+    }
+}
+
+
     </script>
 </head>
 <body>

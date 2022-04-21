@@ -30,33 +30,30 @@ class UploadController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
+         
             $File = $form->get('filename')->getData();
 
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
+         
             if ($File) {
                 $originalFilename = pathinfo($File->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
+       
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$File->guessExtension();
+                $newFilename = $safeFilename.'.'.$File->guessExtension();
 
-                // Move the file to the directory where brochures are stored
+              
                 try {
                     $File->move(
                         $this->getParameter('files_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+     
                 }
 
-                // updates the 'Filename' property to store the PDF file name
-                // instead of its contents
+           
                 $image->setFilename($newFilename);
             }
 
-            // ... persist the $image variable or any other work
             $image->setValidation(false);
 
             $imageRepository->add($image);
@@ -77,6 +74,9 @@ class UploadController extends AbstractController
         
         $image = new Image();
         $image = $imageRepository->findOneById($request->get('id'));
+        $filepath = "photos/".$image->getFilename();
+        $nom_image = explode(".", $image->getFilename());
+        $nom_image = $nom_image[0];
         $dossier = new Dossier();
         $form = $this->createForm(DossierType::class);
         $form->handleRequest($request);
@@ -84,8 +84,17 @@ class UploadController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $dossier_nom = $form->get('nom')->getData();
-            mkdir("./photos/".$dossier_nom, 0777);
-            dump($dossier_nom);
+            if ($dossierRepository->findOneByNom($dossier_nom)){
+                $destinationPath = "photos/".$dossier_nom."/".$image->getFilename(); 
+                rename($filepath,$destinationPath);
+            } else {
+                mkdir("./photos/".$dossier_nom, 0777);
+                $destinationPath = "photos/".$dossier_nom."/".$image->getFilename(); 
+                rename($filepath,$destinationPath);
+                $dossier->setNom($dossier_nom);
+                $dossierRepository->add($dossier);
+            }
+            
             return $this->redirectToRoute('app_home');
         }
         
@@ -93,6 +102,7 @@ class UploadController extends AbstractController
         return $this->renderForm('upload/detail.html.twig', [
             'image' => $image,
             'form' => $form,
+            'nom' => $nom_image
         ]);
         
     }

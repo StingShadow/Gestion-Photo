@@ -12,14 +12,31 @@
 <div class="separator"></div>
 <section class="section has-text-white mb-5 pb-5">
     <div class="container">
-    <img src="/photos/{{ image.filename }}"/><br>
-    {{image.legende}}
-
-    {{ form_start(form) }}
-    
+        <p>Image : {{nom}}</p>
+        <img src="/photos/{{ image.filename }}" style="display: block; margin: 0px auto;"/><br>
+        {{image.legende}}
+        <br>
+        <div class="control">
+                <label class="radio">
+                    <input type="radio" name="answer" onclick="handleClick(this);" value="1">
+                    Yes
+                </label>
+                <label class="radio">
+                    <input type="radio" name="answer" onclick="handleClick(this);" value="2">
+                    No
+                </label>
+        </div>
+            {{ form_start(form) }}
+        <div id="hide">
+                {{form_row(form.sous_dossier)}}
+        </div>
+            <br>      
+        <div id="hide-new">
                 {{ form_row(form.nom) }}
-                
-              {{ form_end(form) }}
+            <br>            
+        </div>
+        <div id="validation">{{form_row(form.validation)}}</div>
+            {{ form_end(form) }}
     </div>
 </section>
 
